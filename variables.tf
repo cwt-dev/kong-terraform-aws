@@ -520,3 +520,10 @@ variable "db_final_snapshot_identifier" {
   type        = string
   default     = ""
 }
+
+# User data
+variable "extra_userdata" {
+  description = "base64-encoded extra user_data"
+  type        = string
+  default     = null
+}

@@ -33,4 +33,9 @@ data "template_cloudinit_config" "cloud-init" {
     content_type = "text/x-shellscript"
     content      = data.template_file.shell-script.rendered
   }
+
+  part {
+    content_type = "text/x-shellscript"
+    content      = var.extra_userdata
+  }
 }
