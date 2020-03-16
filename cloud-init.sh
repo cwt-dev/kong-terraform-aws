@@ -281,9 +281,28 @@ if [ "$EE_LICENSE" != "placeholder" ]; then
 
     sv stop /etc/sv/kong
     cat <<EOF >> /etc/kong/kong.conf
+
+# OIDC for kong admin
 enforce_rbac = on
-admin_gui_auth = basic-auth
-admin_gui_session_conf = { "secret":"${SESSION_SECRET}", "cookie_secure":false }
+admin_gui_auth=openid-connect
+admin_gui_session_conf = { "secret":"7layer", "cookie_name":"kong_cookie"}
+admin_gui_auth_conf={ \
+  "issuer": "${OIDC_ISSUER}", \
+  "client_id": ["${OIDC_CLIENT_ID}"], \
+  "client_secret": ["${OIDC_CLIENT_SECRET}"], \
+  "consumer_by": ["username"], \
+  "ssl_verify": false, \
+  "consumer_claim": ["sub"], \
+  "leeway": 60, \
+  "redirect_uri": ["${OIDC_REDIRECT_URI}"], \
+  "login_redirect_uri": ["${OIDC_LOGIN_REDIRECT_URI}"], \
+  "logout_methods": ["GET", "DELETE"], \
+  "logout_query_arg": "logout", \
+  "logout_redirect_uri": ["${OIDC_LOGOUT_REDIRECT_URI}"], \
+  "scopes": ["openid","profile","email"], \
+  "auth_methods": ["authorization_code"], \
+  "ignore_signature": ["authorization_code","session"] \
+}
 EOF
 
     sv start /etc/sv/kong     

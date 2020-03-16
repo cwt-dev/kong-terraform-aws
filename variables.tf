@@ -520,3 +520,39 @@ variable "db_final_snapshot_identifier" {
   type        = string
   default     = ""
 }
+
+variable "oidc_issuer" {
+  description = "oidc issuer"
+  type        = string
+  default     = ""
+}
+
+variable "oidc_client_id" {
+  description = "oidc client id"
+  type        = string
+  default     = ""
+}
+
+variable "oidc_client_secret" {
+  description = "oidc client secret"
+  type        = string
+  default     = ""
+}
+
+variable "oidc_redirect_uri" {
+  description = "oidc redirect uri"
+  type        = string
+  default     = ""
+}
+
+variable "oidc_login_redirect_uri" {
+  description = "oidc login redirect uri"
+  type        = string
+  default     = ""
+}
+
+variable "oidc_logout_redirect_uri" {
+  description = "logout redirect uri"
+  type        = string
+  default     = ""
+}
